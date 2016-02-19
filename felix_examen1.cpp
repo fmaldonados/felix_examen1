@@ -8,7 +8,9 @@ using std::cin;
 void llenar(int **);
 void imprimir(int **);
 void mover_clonado(int**, int);
+void mover_doble(int**, int);
 int contar_espacios(int**);
+
 int main(int argc, char* argv[]){
 	int** matriz = new int*[7];
 	for (int i = 0; i < 7; i++){
@@ -30,7 +32,8 @@ int main(int argc, char* argv[]){
 				imprimir(matriz);
 			}else{
 				if(opcion==2){
-				
+					mover_doble(matriz,turno);
+					imprimir(matriz);				
 				}else{
 					cout<< "Opcion no valida! perdiste turno";
 				}	
@@ -53,7 +56,8 @@ int main(int argc, char* argv[]){
 				imprimir(matriz);
                         }else{
 				if(opcion==2){
-                                
+                                	mover_doble(matriz,turno);
+					imprimir(matriz);
                                 }else{
                                         cout<< "Opcion no valida! perdiste turno";
                                 }
@@ -69,9 +73,161 @@ int main(int argc, char* argv[]){
 		}
 	}
 	
+	for (int i = 0; i < 7; i++){
+		delete[] matriz[i];
+	}
 
+	delete[] matriz;
 
 	return 0;
+}
+
+void mover_doble(int** matriz, int turno){
+int x1,x2,y1,y2;
+        if(turno==1){
+                cout<< "Ingrese coordenada de la pieza que quiere clonar en X:";
+                cin>>x1;
+                cout<< "Ingrese coordenada de la píeza que quiere clonar en Y:";
+                cin>>y1;
+                cout<< "Ingrese coordenada adonde quiere clonar la pieza en X:";
+                cin >> x2;
+                cout<< "Ingrese coordenada adonde quiere clonar la pieza en Y:";
+                cin >>y2;
+		if((x2==x1-2 && y2== y1-2) || (x2== x1-2 && y2==y1) || (x2 == x1-2 && y2== y1 +2) ||
+                        (x2==x1 && y2==y1-2) || (x2==x1 && y2==y1+2) ||
+                        (x2== x1+2 && y2== y1-2)||(x2== x1+2 && y2==y1)||(x2==x1+2 && y2==y1+2) ){
+                        if((x1>=0 && x1<7) && (x2>=0 && x2<7) && (y1>=0 && y1<7) && (y2>=0 && y2<7) ){
+                                if(matriz[x1][y1]== 1){
+                                        if(matriz[x2][y2]==0 ){
+                                                matriz[x1][y1]=0;
+                                                matriz[x2][y2]=1;
+						
+						
+						if( (x2-1 >= 0 && x2-1 < 7) && (y2-1 >=0 && y2-1 < 7) ){
+                                                        if(matriz[x2-1][y2-1]==2)
+                                                        matriz[x2-1][y2-1]=1;
+                                                }
+                                                if( (x2-1 >= 0 && x2-1 < 7) && (y2 >=0 && y2 < 7) ){
+                                                        if(matriz[x2-1][y2]==2)
+                                                        matriz[x2-1][y2]=1;
+
+                                                }
+                                                if( (x2-1 >= 0 && x2-1< 7) && (y2+1 >=0 && y2+1 < 7) ){
+                                                        if(matriz[x2-1][y2+1]==2)
+                                                        matriz[x2-1][y2+1]=1;
+
+                                                }
+                                                if( (x2 >= 0 && x2< 7) && (y2-1 >=0 && y2-1 < 7) ){
+                                                        if(matriz[x2][y2-1]==2)
+                                                        matriz[x2][y2-1]=1;
+
+                                                }
+                                                if( (x2 >= 0 && x2< 7) && (y2+1 >=0 && y2+1 < 7) ){
+                                                        if(matriz[x2][y2+1]==2)
+                                                        matriz[x2][y2+1]=1;
+
+                                                }
+                                                if( (x2+1 >= 0 && x2+1< 7) && (y2-1 >=0 && y2-1 < 7) ){
+                                                        if(matriz[x2+1][y2-1]==2)
+                                                        matriz[x2+1][y2-1]=1;
+
+                                                }
+                                                if( (x2+1 >= 0 && x2+1< 7) && (y2 >=0 && y2 < 7) ){
+                                                        if(matriz[x2+1][y2]==2)
+                                                        matriz[x2+1][y2]=1;
+
+                                                }
+                                                if( (x2+1 >= 0 && x2+1< 7) && (y2+1 >=0 && y2+1 < 7) ){
+                                                        if(matriz[x2+1][y2+1]==2)
+                                                        matriz[x2+1][y2+1]=1;
+
+                                                }
+                                        }else{
+                                                cout<< "En esa coordenada ya hay una pieza, Perdiste turno"<<endl;
+
+                                        }
+                                } 
+                        }else{
+                                cout<< "Coordenadas fuera de rango, Perdiste turno"<<endl;
+                        } 
+                }else{
+                        cout<< "Movimiento no valido, Perdiste turno"<<endl;
+                }
+
+	}
+	if(turno ==2){
+		cout<< "Ingrese coordenada de la pieza que quiere clonar en X:";
+                cin>>x1;
+                cout<< "Ingrese coordenada de la píeza que quiere clonar en Y:";
+                cin>>y1;
+                cout<< "Ingrese coordenada adonde quiere clonar la pieza en X:";
+                cin >> x2;
+                cout<< "Ingrese coordenada adonde quiere clonar la pieza en Y:";
+                cin >>y2;
+		
+		if((x2==x1-1 && y2== y1-1) || (x2== x1-1 && y2==y1) || (x2 == x1-1 && y2== y1 +1) ||
+                        (x2==x1 && y2==y1-1) || (x2==x1 && y2==y1+1) ||
+                        (x2== x1+1 && y2== y1-1)||(x2== x1+1 && y2==y1)||(x2==x1+1 && y2==y1+1) ){
+			if((x1>=0 && x1<7) && (x2>=0 && x2<7) && (y1>=0 && y1<7) && (y2>=0 && y2<7) ){
+				if(matriz[x1][y1]== 2){
+					if(matriz[x2][y2]==0 ){
+						matriz[x1][y1]=0;
+						matriz[x2][y2]=2;
+						
+						if( (x2-1 >= 0 && x2-1 < 7) && (y2-1 >=0 && y2-1 < 7) ){
+                                                        if(matriz[x2-1][y2-1]==1)
+                                                        matriz[x2-1][y2-1]=2;
+                                                }
+                                                if( (x2-1 >= 0 && x2-1 < 7) && (y2 >=0 && y2 < 7) ){
+                                                        if(matriz[x2-1][y2]==1)
+                                                        matriz[x2-1][y2]=2;
+
+                                                }
+                                                if( (x2-1 >= 0 && x2-1< 7) && (y2+1 >=0 && y2+1 < 7) ){
+                                                        if(matriz[x2-1][y2+1]==1)
+                                                        matriz[x2-1][y2+1]=2;
+
+                                                }
+                                                if( (x2 >= 0 && x2< 7) && (y2-1 >=0 && y2-1 < 7) ){
+                                                        if(matriz[x2][y2-1]==1)
+                                                        matriz[x2][y2-1]=2;
+
+                                                }
+                                                if( (x2 >= 0 && x2< 7) && (y2+1 >=0 && y2+1 < 7) ){
+                                                        if(matriz[x2][y2+1]==1)
+                                                        matriz[x2][y2+1]=2;
+
+                                                }
+                                                if( (x2+1 >= 0 && x2+1< 7) && (y2-1 >=0 && y2-1 < 7) ){
+                                                        if(matriz[x2+1][y2-1]==1)
+                                                        matriz[x2+1][y2-1]=2;
+
+                                                }
+                                                if( (x2+1 >= 0 && x2+1< 7) && (y2 >=0 && y2 < 7) ){
+                                                        if(matriz[x2+1][y2]==1)
+                                                        matriz[x2+1][y2]=2;
+
+                                                }
+                                                if( (x2+1 >= 0 && x2+1< 7) && (y2+1 >=0 && y2+1 < 7) ){
+                                                        if(matriz[x2+1][y2+1]==1)
+                                                        matriz[x2+1][y2+1]=2;
+
+                                                }
+
+					}else{
+						cout<< "En esa coordenada ya hay una pieza, Perdiste turno"<<endl;
+
+					}
+				}	
+			}else{
+				cout<< "Coordenadas fuera de rango, Perdiste turno"<<endl;
+			}		
+		}else{
+                        cout<< "Movimiento no valido, Perdiste turno"<<endl;
+                }
+
+
+	} 
 }
 void mover_clonado(int** matriz, int turno){
 	int x1,x2,y1,y2;
@@ -143,6 +299,7 @@ void mover_clonado(int** matriz, int turno){
 		}else{
 			cout<< "Movimiento no valido, Perdiste turno"<<endl;
 		}
+
 		
 		
 	}
@@ -165,41 +322,41 @@ void mover_clonado(int** matriz, int turno){
                                                 matriz[x2][y2]=2;
 						if( (x2-1 >= 0 && x2-1 < 7) && (y2-1 >=0 && y2-1 < 7) ){
                                                         if(matriz[x2-1][y2-1]==1)
-                                                        matriz[x2-1][y2-1]=1;
+                                                        matriz[x2-1][y2-1]=2;
                                                 }
                                                 if( (x2-1 >= 0 && x2-1 < 7) && (y2 >=0 && y2 < 7) ){
                                                         if(matriz[x2-1][y2]==1)
-                                                        matriz[x2-1][y2]=1;
+                                                        matriz[x2-1][y2]=2;
 
                                                 }
                                                 if( (x2-1 >= 0 && x2-1< 7) && (y2+1 >=0 && y2+1 < 7) ){
                                                         if(matriz[x2-1][y2+1]==1)
-                                                        matriz[x2-1][y2+1]=1;
+                                                        matriz[x2-1][y2+1]=2;
 
                                                 }
                                                 if( (x2 >= 0 && x2< 7) && (y2-1 >=0 && y2-1 < 7) ){
                                                         if(matriz[x2][y2-1]==1)
-                                                        matriz[x2][y2-1]=1;
+                                                        matriz[x2][y2-1]=2;
 
                                                 }
                                                 if( (x2 >= 0 && x2< 7) && (y2+1 >=0 && y2+1 < 7) ){
                                                         if(matriz[x2][y2+1]==1)
-                                                        matriz[x2][y2+1]=1;
+                                                        matriz[x2][y2+1]=2;
 
                                                 }
                                                 if( (x2+1 >= 0 && x2+1< 7) && (y2-1 >=0 && y2-1 < 7) ){
                                                         if(matriz[x2+1][y2-1]==1)
-                                                        matriz[x2+1][y2-1]=1;
+                                                        matriz[x2+1][y2-1]=2;
 
                                                 }
                                                 if( (x2+1 >= 0 && x2+1< 7) && (y2 >=0 && y2 < 7) ){
                                                         if(matriz[x2+1][y2]==1)
-                                                        matriz[x2+1][y2]=1;
+                                                        matriz[x2+1][y2]=2;
 
                                                 }
                                                 if( (x2+1 >= 0 && x2+1< 7) && (y2+1 >=0 && y2+1 < 7) ){
                                                         if(matriz[x2+1][y2+1]==1)
-                                                        matriz[x2+1][y2+1]=1;
+                                                        matriz[x2+1][y2+1]=2;
 
                                                 }
                                         }else{
