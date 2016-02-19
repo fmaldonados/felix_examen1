@@ -387,6 +387,7 @@ int contar_espacios(int** matriz){
 	return espacios;
 }
 void imprimir(int** matriz){
+	cout << " 0  1  2  3  4  5  6 "<<endl;
 	for(int i = 0; i< 7; i++){
                 for(int j=0 ; j<7; j++){
                         if(matriz[i][j]== 0){
@@ -399,6 +400,7 @@ void imprimir(int** matriz){
 				cout<< " # ";
 			}
                 }
+		cout<< i;
 		cout<< endl;
         }
 
